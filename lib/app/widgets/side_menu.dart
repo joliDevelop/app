@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
-import 'package:go_router/go_router.dart';
+import '../utils/ui_helpers.dart';
 
 class JoliSideMenu extends StatelessWidget {
   const JoliSideMenu({super.key, this.onNavigate});
 
   final ValueChanged<String>? onNavigate;
-
-
-void _go(BuildContext context, String path) {
-  Navigator.of(context).pop(); 
-  context.push(path);
-}
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +14,7 @@ void _go(BuildContext context, String path) {
       child: SafeArea(
         child: Column(
           children: [
+
             // Header
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
@@ -34,14 +29,16 @@ void _go(BuildContext context, String path) {
                     ),
                     child: const Icon(Icons.person, color: AppColors.navy),
                   ),
+
                   const SizedBox(width: 12),
+
                   Expanded(
                     child: Text(
                       'Sebastian',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: AppColors.navy,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: AppColors.navy,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
@@ -54,27 +51,27 @@ void _go(BuildContext context, String path) {
             _MenuItem(
               icon: Icons.home_outlined,
               title: 'Inicio',
-              onTap: () => _go(context, '/home'),
+              onTap: () => go(context, '/home'),
             ),
             _MenuItem(
               icon: Icons.shield_outlined,
               title: 'Seguros',
-              onTap: () => _go(context, '/seguros/home'),
+              onTap: () => go(context, '/seguros/home'),
             ),
             _MenuItem(
               icon: Icons.account_balance_wallet_outlined,
               title: 'Pensiones',
-              onTap: () => _go(context, '/pensiones/home'),
+              onTap: () => go(context, '/pensiones/home'),
             ),
             _MenuItem(
               icon: Icons.trending_up,
               title: 'Inversión',
-              onTap: () => _go(context, '/inversiones/home'),
+              onTap: () => go(context, '/inversiones/home'),
             ),
             _MenuItem(
               icon: Icons.account_balance_outlined,
               title: 'Plan de retiro',
-              onTap: () => _go(context, '/retiro/home'),
+              onTap: () => go(context, '/retiro/home'),
             ),
 
             const Spacer(),
@@ -85,7 +82,7 @@ void _go(BuildContext context, String path) {
               icon: Icons.logout,
               title: 'Iniciar sesión',
               danger: true,
-              onTap: () => _go(context, '/login'),
+              onTap: () => go(context, '/login'),
             ),
             const SizedBox(height: 10),
           ],
@@ -117,9 +114,9 @@ class _MenuItem extends StatelessWidget {
       title: Text(
         title,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
+          color: color,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       onTap: onTap,
     );

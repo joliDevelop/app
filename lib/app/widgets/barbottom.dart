@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../../app/utils/ui_helpers.dart';
 
 class _NavItem {
   const _NavItem({required this.path, required this.label, required this.icon});
@@ -77,7 +78,12 @@ class JoliBottomNav extends StatelessWidget {
         height: 70,
         elevation: 0,
         selectedIndex: _selectedIndex(),
-        onDestinationSelected: (i) => onNavigate(_navItems[i].path),
+        onDestinationSelected: (i) {
+          final path = _navItems[i].path;
+          if (path != location) {
+            go(context, path);
+          }
+        },
         destinations: [
           for (final item in _navItems)
             NavigationDestination(icon: Icon(item.icon), label: item.label),

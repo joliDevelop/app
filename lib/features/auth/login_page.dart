@@ -20,8 +20,13 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   Future<void> _login() async {
-    if (_emailCtrl.text.isEmpty || _passwordCtrl.text.isEmpty) {
-      showErrorSnackBar(context, 'Ingresa tu correo y contraseña');
+    if (_emailCtrl.text.isEmpty) {
+      showErrorSnackBar(context, 'Ingresa tu correo');
+      return;
+    }
+
+    if (_passwordCtrl.text.isEmpty) {
+      showErrorSnackBar(context, 'Ingresa tu contraseña');
       return;
     }
 
@@ -37,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
 
       debugPrint('Login OK: $data');
       showSuccessSnackBar(context, 'Login exitoso');
-
     } catch (e) {
       if (!mounted) return;
       showErrorSnackBar(context, e.toString());
@@ -50,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final headerHeight = size.height * 0.50;
+    final headerHeight = size.height * 0.32;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -74,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: DinamicBar(title: 'Inicia sesión'),
+                      child: DinamicBar(title: 'Back'),
                     ),
 
                     Positioned(
@@ -96,7 +100,12 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 28),
                 child: Column(
                   children: [
-                    const SizedBox(height: 6),
+                    Image.asset(
+                      'assets/home/joli_1.png',
+                      height: 45,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 12),
                     const Text(
                       'Inicia sesión',
                       style: TextStyle(
@@ -144,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             : const Text(
                                 'Iniciar',
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(fontSize: 17),
                               ),
                       ),
                     ),
@@ -158,16 +167,55 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          elevation: 6,
+                          elevation: 4,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(28),
+                            side: const BorderSide(color: Color(0xFFDDDDDD)),
                           ),
                         ),
-                        child: const Text('Google'),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset('assets/icons/google.webp', height: 22),
+                            const SizedBox(width: 12),
+                            const Text(
+                              'Continuar con Google',
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
 
-                    const SizedBox(height: 26),
+                    const SizedBox(height: 18),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          '¿No tienes cuenta?',
+                          style: TextStyle(color: Colors.black54, fontSize: 14),
+                        ),
+                        const SizedBox(width: 6),
+                        GestureDetector(
+                          onTap: () {
+                            // Navegar a registro
+                          },
+                          child: Text(
+                            'Crear cuenta',
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -195,14 +243,17 @@ class _Input extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 54,
+      height: 52,
       child: TextField(
         controller: controller,
         obscureText: obscure,
-        style: const TextStyle(fontSize: 15, color: Colors.black87),
+        style: const TextStyle(fontSize: 20, color: Colors.black87),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: const TextStyle(color: Color(0xFFB9B9B9), fontSize: 15),
+          hintStyle: const TextStyle(
+            color: Color.fromARGB(255, 91, 91, 91),
+            fontSize: 19,
+          ),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(right: 6),
             child: IconTheme(
@@ -215,7 +266,7 @@ class _Input extends StatelessWidget {
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 18,
-            vertical: 16,
+            vertical: 18,
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
@@ -223,7 +274,10 @@ class _Input extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(color: Color(0xFFE5E5E5), width: 1),
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 0, 111, 155),
+              width: 1,
+            ),
           ),
         ),
       ),
