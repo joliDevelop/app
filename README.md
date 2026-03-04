@@ -38,3 +38,4 @@ flutter run -d R5CW506S7MV
 flutter clean
 flutter pub get
 flutter run -d chrome
+
