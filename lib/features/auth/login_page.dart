@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import '../../app/theme/app_colors.dart';
 import '../../app/widgets/dinamicbar.dart';
-import '../../app/services/auth_service.dart';
 import '../../app/utils/ui_helpers.dart';
+import '../../app/services/auth_service.dart';
+import '../../app/providers/sesion_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,6 +44,15 @@ class _LoginPageState extends State<LoginPage> {
 
       debugPrint('Login OK: $data');
       showSuccessSnackBar(context, 'Login exitoso');
+
+      // envio de dados para gurdar en storage 
+      final auth = context.read<SesionProvider>();
+      await auth.login(data['user'], data['token']);
+
+      if (!mounted) return;
+      
+      // redirige a home 
+      go(context, '/home');
     } catch (e) {
       if (!mounted) return;
       showErrorSnackBar(context, e.toString());

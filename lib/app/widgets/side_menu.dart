@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../utils/ui_helpers.dart';
+import '../../app/providers/sesion_provider.dart';
+//  con utilidades para acceder a estados globales.
+import 'package:provider/provider.dart';
 
 class JoliSideMenu extends StatelessWidget {
   const JoliSideMenu({super.key, this.onNavigate});
@@ -9,12 +12,13 @@ class JoliSideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLogged = context.watch<SesionProvider>().isLogged;
+
     return Drawer(
       backgroundColor: AppColors.background,
       child: SafeArea(
         child: Column(
           children: [
-
             // Header
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
@@ -78,13 +82,28 @@ class JoliSideMenu extends StatelessWidget {
 
             const Divider(height: 1, color: AppColors.border),
 
-            _MenuItem(
-              icon: Icons.logout,
-              title: 'Iniciar sesión',
-              danger: true,
-              onTap: () => go(context, '/login'),
-            ),
-            const SizedBox(height: 10),
+            if (!isLogged) ...[
+              _MenuItem(
+                icon: Icons.logout,
+                title: 'Iniciar sesión',
+                danger: true,
+                onTap: () => go(context, '/login'),
+              ),
+
+              const SizedBox(height: 10),
+            ] else ...[
+              _MenuItem(
+                icon: Icons.logout,
+                title: 'Cerrar sesión',
+                danger: true,
+                onTap: () async {
+                  await context.read<SesionProvider>().logout();
+                  go(context, '/home');
+                },
+              ),
+
+              const SizedBox(height: 10),
+            ],
           ],
         ),
       ),

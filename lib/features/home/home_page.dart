@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
 import '../../app/theme/app_colors.dart';
 
+import '../../app/providers/sesion_provider.dart';
+//  con utilidades para acceder a estados globales.
+import 'package:provider/provider.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<SesionProvider>().user;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          if (user != null) ...[
+            Text(
+              'Hola ${user['nombre']} 👋',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: AppColors.primary,
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
 
           // HERO
           Text(
@@ -27,10 +45,7 @@ class HomePage extends StatelessWidget {
 
           Text(
             'Pensiones · Inversión · Seguros · Retiro',
-            style: TextStyle(
-              fontSize: 16,
-              color: AppColors.textMuted,
-            ),
+            style: TextStyle(fontSize: 16, color: AppColors.textMuted),
           ),
 
           const SizedBox(height: 32),
@@ -44,22 +59,10 @@ class HomePage extends StatelessWidget {
             crossAxisSpacing: 16,
             childAspectRatio: 1.1,
             children: const [
-              _ModuleCard(
-                title: 'Pensiones',
-                icon: Icons.shield,
-              ),
-              _ModuleCard(
-                title: 'Inversión',
-                icon: Icons.trending_up,
-              ),
-              _ModuleCard(
-                title: 'Seguros',
-                icon: Icons.verified_user,
-              ),
-              _ModuleCard(
-                title: 'Retiro',
-                icon: Icons.account_balance,
-              ),
+              _ModuleCard(title: 'Pensiones', icon: Icons.shield),
+              _ModuleCard(title: 'Inversión', icon: Icons.trending_up),
+              _ModuleCard(title: 'Seguros', icon: Icons.verified_user),
+              _ModuleCard(title: 'Retiro', icon: Icons.account_balance),
             ],
           ),
 
@@ -98,8 +101,6 @@ class HomePage extends StatelessWidget {
           ),
 
           const SizedBox(height: 32),
-
-        
         ],
       ),
     );
@@ -110,10 +111,7 @@ class _ModuleCard extends StatelessWidget {
   final String title;
   final IconData icon;
 
-  const _ModuleCard({
-    required this.title,
-    required this.icon,
-  });
+  const _ModuleCard({required this.title, required this.icon});
 
   @override
   Widget build(BuildContext context) {
