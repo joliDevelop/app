@@ -31,3 +31,38 @@ void go(BuildContext context, String path) {
   }
   context.push(path);
 }
+
+Future<bool> showConfirmDialog(
+  BuildContext context, {
+  required String title,
+  required String message,
+  String confirmText = 'Aceptar',
+  String cancelText = 'Cancelar',
+}) async {
+
+  final result = await showDialog<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            child: Text(cancelText),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          ElevatedButton(
+            child: Text(confirmText),
+            onPressed: () => Navigator.pop(context, true),
+          ),
+        ],
+      );
+    },
+  );
+
+  return result ?? false;
+}
