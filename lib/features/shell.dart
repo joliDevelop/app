@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../app/theme/app_colors.dart';
 import '../app/widgets/bartop.dart';
 import '../app/widgets/barbottom.dart';
@@ -25,13 +24,17 @@ class HomeShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: showAppBar ? JoliAppBar(location: title) : null,
-      endDrawer: JoliSideMenu(onNavigate: (path) => context.push(path)),
+
+      // Drawer
+      endDrawer: const JoliSideMenu(),
+
       backgroundColor: AppColors.background,
       body: child,
+
+      // BottomNav
       bottomNavigationBar: showBottomBar
           ? JoliBottomNav(
               location: location,
-              onNavigate: (path) => context.go(path),
             )
           : null,
     );

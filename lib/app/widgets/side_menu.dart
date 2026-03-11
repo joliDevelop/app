@@ -55,27 +55,42 @@ class JoliSideMenu extends StatelessWidget {
             _MenuItem(
               icon: Icons.home_outlined,
               title: 'Inicio',
-              onTap: () => go(context, '/home'),
+              onTap: () {
+                Navigator.pop(context);
+                go(context, '/home');
+              },
             ),
             _MenuItem(
               icon: Icons.shield_outlined,
               title: 'Seguros',
-              onTap: () => go(context, '/seguros/home'),
+              onTap: () {
+                Navigator.pop(context);
+                go(context, '/seguros/home');
+              },
             ),
             _MenuItem(
               icon: Icons.account_balance_wallet_outlined,
               title: 'Pensiones',
-              onTap: () => go(context, '/pensiones/home'),
+              onTap: () {
+                Navigator.pop(context);
+                go(context, '/pensiones/home');
+              },
             ),
             _MenuItem(
               icon: Icons.trending_up,
               title: 'Inversión',
-              onTap: () => go(context, '/inversiones/home'),
+              onTap: () {
+                Navigator.pop(context);
+                go(context, '/inversiones/home');
+              },
             ),
             _MenuItem(
               icon: Icons.account_balance_outlined,
               title: 'Plan de retiro',
-              onTap: () => go(context, '/retiro/home'),
+              onTap: () {
+                Navigator.pop(context);
+                go(context, '/retiro/home');
+              },
             ),
 
             const Spacer(),
@@ -87,7 +102,10 @@ class JoliSideMenu extends StatelessWidget {
                 icon: Icons.logout,
                 title: 'Iniciar sesión',
                 danger: true,
-                onTap: () => go(context, '/login'),
+                onTap: () {
+                  Navigator.pop(context);
+                  go(context, '/login');
+                },
               ),
 
               const SizedBox(height: 10),
@@ -97,6 +115,15 @@ class JoliSideMenu extends StatelessWidget {
                 title: 'Cerrar sesión',
                 danger: true,
                 onTap: () async {
+                  final confirm = await showConfirmDialog(
+                    context,
+                    title: 'Cerrar sesión',
+                    message: '¿Seguro que deseas cerrar sesión?',
+                    confirmText: 'Cerrar sesión',
+                  );
+
+                  if (!confirm) return;
+
                   await context.read<SesionProvider>().logout();
                   go(context, '/home');
                 },
