@@ -45,13 +45,13 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint('Login OK: $data');
       showSuccessSnackBar(context, 'Login exitoso');
 
-      // envio de dados para gurdar en storage 
+      // envio de dados para gurdar en storage
       final auth = context.read<SesionProvider>();
       await auth.login(data['user'], data['token']);
 
       if (!mounted) return;
-      
-      // redirige a home 
+
+      // redirige a home
       go(context, '/home');
     } catch (e) {
       if (!mounted) return;
@@ -69,6 +69,9 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+
+      appBar: const AppBarGlobal(title: "login"),
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -83,13 +86,6 @@ class _LoginPageState extends State<LoginPage> {
                       'assets/home/peaple1.png',
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
-                    ),
-
-                    const Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: DinamicBar(title: 'Back'),
                     ),
 
                     Positioned(
@@ -214,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(width: 6),
                         GestureDetector(
                           onTap: () {
-                            // Navegar a registro
+                            go(context, '/registro');
                           },
                           child: Text(
                             'Crear cuenta',
