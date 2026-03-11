@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
+// import '../theme/app_colors.dart';
 import '../../app/utils/ui_helpers.dart';
 
 class _NavItem {
@@ -35,14 +35,9 @@ const _navItems = <_NavItem>[
 ];
 
 class JoliBottomNav extends StatelessWidget {
-  const JoliBottomNav({
-    super.key,
-    required this.location,
-    required this.onNavigate,
-  });
+  const JoliBottomNav({super.key, required this.location});
 
   final String location;
-  final ValueChanged<String> onNavigate;
 
   int _selectedIndex() {
     final idx = _navItems.indexWhere((item) => item.path == location);
@@ -51,44 +46,20 @@ class JoliBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBarTheme(
-      data: NavigationBarThemeData(
-        backgroundColor: AppColors.background,
-        indicatorColor: AppColors.navy.withOpacity(0.15),
-        labelTextStyle: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return const TextStyle(
-              color: AppColors.navy,
-              fontWeight: FontWeight.w600,
-            );
-          }
-          return const TextStyle(
-            color: AppColors.textMuted,
-            fontWeight: FontWeight.w400,
-          );
-        }),
-        iconTheme: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return const IconThemeData(color: AppColors.navy, size: 26);
-          }
-          return const IconThemeData(color: AppColors.textMuted, size: 24);
-        }),
-      ),
-      child: NavigationBar(
-        height: 70,
-        elevation: 0,
-        selectedIndex: _selectedIndex(),
-        onDestinationSelected: (i) {
-          final path = _navItems[i].path;
-          if (path != location) {
-            go(context, path);
-          }
-        },
-        destinations: [
-          for (final item in _navItems)
-            NavigationDestination(icon: Icon(item.icon), label: item.label),
-        ],
-      ),
+    return NavigationBar(
+      height: 70,
+      elevation: 0,
+      selectedIndex: _selectedIndex(),
+      onDestinationSelected: (i) {
+        final path = _navItems[i].path;
+        if (path != location) {
+          go(context, path);
+        }
+      },
+      destinations: [
+        for (final item in _navItems)
+          NavigationDestination(icon: Icon(item.icon), label: item.label),
+      ],
     );
   }
 }

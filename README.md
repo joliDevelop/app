@@ -39,3 +39,6 @@ flutter clean
 flutter pub get
 flutter run -d chrome
 
+
+
+mongodb+srv://WoaW:Woaw2026_00@wo-aw.zndgn4w.mongodb.net/woaw?retryWrites=true&w=majority&appName=wo-aw

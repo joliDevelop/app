@@ -26,9 +26,6 @@ void showSuccessSnackBar(BuildContext context, String message) {
 
 // HISTORIAL DE NAVEGACIONES 
 void go(BuildContext context, String path) {
-  if (Navigator.of(context).canPop()) {
-    Navigator.of(context).pop();
-  }
   context.push(path);
 }
 
