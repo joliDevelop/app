@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../features/shell.dart';
 
 import '../features/auth/login_page.dart';
+import '../features/register/data.dart';
 import '../features/home/home_page.dart';
 import '../features/seguros/home_page.dart';
 import '../features/pensiones/home_page.dart';
@@ -34,6 +35,13 @@ final appPages = <AppPageRoute>[
     showAppBar: false,
     showBottomBar: false,
     builder: (context, state) => const LoginPage(),
+  ),
+  AppPageRoute(
+    path: '/registro',
+    title: 'Registro',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) => const RegisterDataPage(),
   ),
   AppPageRoute(
     path: '/home',

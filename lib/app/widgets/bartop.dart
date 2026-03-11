@@ -10,7 +10,7 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 202, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 0, 153, 192),
       elevation: 0,
       surfaceTintColor: AppColors.background,
       title: Row(
@@ -22,7 +22,7 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
               location,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w400,
-                color: AppColors.navy,
+                color: const Color.fromARGB(255, 255, 255, 255),
               ),
             ),
           ],
@@ -32,13 +32,13 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.notifications_none),
-          color: AppColors.navy,
+          color: const Color.fromARGB(255, 255, 255, 255),
         ),
         Builder(
           builder: (context) => IconButton(
             onPressed: () => Scaffold.of(context).openEndDrawer(),
             icon: const Icon(Icons.menu),
-            color: AppColors.navy,
+            color: const Color.fromARGB(255, 255, 255, 255),
             tooltip: 'Menú',
           ),
         ),
