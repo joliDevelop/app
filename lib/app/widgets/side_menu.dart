@@ -114,6 +114,7 @@ class JoliSideMenu extends StatelessWidget {
                 icon: Icons.logout,
                 title: 'Cerrar sesión',
                 danger: true,
+                
                 onTap: () async {
                   final confirm = await showConfirmDialog(
                     context,
@@ -125,6 +126,7 @@ class JoliSideMenu extends StatelessWidget {
                   if (!confirm) return;
 
                   await context.read<SesionProvider>().logout();
+                  Navigator.pop(context);
                   go(context, '/home');
                 },
               ),

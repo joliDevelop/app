@@ -8,6 +8,8 @@ class AppColors {
   // Botones/títulos
   static const Color navy = Color.fromARGB(255, 2, 149, 198);
 
+  static const Color joli = Color.fromARGB(255, 11, 193, 238);
+
   static const Color dark = Color.fromARGB(255, 0, 0, 0);
   // Fondo claro
   static const Color background = Color(0xFFFFFFFF);

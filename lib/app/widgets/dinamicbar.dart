@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../app/theme/app_colors.dart';
 
 class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
 
@@ -21,9 +22,9 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       elevation: 0,
+      backgroundColor:  AppColors.joli,
       title: Text(title),
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
+      foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       centerTitle: centerTitle,
 
       leading: canGoBack
