@@ -10,6 +10,11 @@ import '../features/seguros/home_page.dart';
 import '../features/pensiones/home_page.dart';
 import '../features/plan_retiro/home_page.dart';
 import '../features/inversiones/home_page.dart';
+import '../features/register/select_verification.dart';
+import '../features/register/verification.dart';
+import '../features/register/pasword.dart';
+import '../features/recover_pasword/recover.dart';
+import '../features/recover_pasword/msj_success.dart';
 
 class AppPageRoute {
   const AppPageRoute({
@@ -36,13 +41,62 @@ final appPages = <AppPageRoute>[
     showBottomBar: false,
     builder: (context, state) => const LoginPage(),
   ),
+  // ----- -----
+  // REGISTER USER
   AppPageRoute(
-    path: '/registro',
+    path: '/registro/preregistro',
     title: 'Registro',
     showAppBar: false,
     showBottomBar: false,
     builder: (context, state) => const RegisterDataPage(),
   ),
+  AppPageRoute(
+    path: '/registro/select/verification',
+    title: 'Seleciona Verificación',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) {
+      final data = state.extra as Map<String, dynamic>;
+      return SelectverificationPage(userData: data);
+    },
+  ),
+  AppPageRoute(
+    path: '/registro/verification/code',
+    title: 'Verifica tu código',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) {
+      final data = state.extra as Map<String, dynamic>;
+      return VerificationPage(userData: data);
+    },
+  ),
+  AppPageRoute(
+    path: '/registro/create/password',
+    title: 'Crea tu contraseña',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) {
+      final data = state.extra as Map<String, dynamic>;
+      return CreatePasswordPage(userData: data);
+    },
+  ),
+  // ----- -----
+  // RECOVER PASSWORD
+  AppPageRoute(
+    path: '/recover/password',
+    title: 'Recuperar contraseña',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) => const RecoverPasswordPage(),
+  ),
+  AppPageRoute(
+    path: '/recover/success/msj',
+    title: 'Mensaje enviado a tu correo',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) => const SuccessMessagePage(),
+  ),
+  // ----- -----
   AppPageRoute(
     path: '/home',
     title: 'Home',

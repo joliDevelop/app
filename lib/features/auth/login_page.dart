@@ -5,8 +5,11 @@ import '../../app/theme/app_colors.dart';
 import '../../app/widgets/dinamicbar.dart';
 import '../../app/utils/ui_helpers.dart';
 import '../../app/services/auth_service.dart';
+// crear las sesiones
 import '../../app/providers/sesion_provider.dart';
 import 'package:provider/provider.dart';
+import '../../app/widgets/app_input.dart';
+import '../../app/services/general_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,20 +22,28 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
 
+  bool _emailCtrlError = false;
+  bool _passwordCtrlError = false;
   bool _loading = false;
+  bool _showPassword = false;
+  double _headerFactor = 0.40;
 
   Future<void> _login() async {
     if (_emailCtrl.text.isEmpty) {
+      setState(() => _emailCtrlError = true);
       showErrorSnackBar(context, 'Ingresa tu correo');
       return;
     }
 
     if (_passwordCtrl.text.isEmpty) {
+      setState(() => _passwordCtrlError = true);
       showErrorSnackBar(context, 'Ingresa tu contraseña');
       return;
     }
 
     setState(() => _loading = true);
+
+    LoadingService.show();
 
     try {
       final data = await AuthService.login(
@@ -43,7 +54,10 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       debugPrint('Login OK: $data');
-      showSuccessSnackBar(context, 'Login exitoso');
+      showSuccessSnackBar(
+        context,
+        'Bienvenido de nuevo, ${data['user']['nombre']}!',
+      );
 
       // envio de dados para gurdar en storage
       final auth = context.read<SesionProvider>();
@@ -52,10 +66,13 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       // redirige a home
+      LoadingService.hide();
       go(context, '/home');
     } catch (e) {
+      LoadingService.hide();
       if (!mounted) return;
-      showErrorSnackBar(context, e.toString());
+      final errorMessage = e.toString().replaceFirst("Exception: ", "");
+      showErrorSnackBar(context, errorMessage);
     } finally {
       if (!mounted) return;
       setState(() => _loading = false);
@@ -63,20 +80,34 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!mounted) return;
+      setState(() {
+        _headerFactor = 0.15;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final headerHeight = size.height * 0.32;
+    final headerHeight = size.height * _headerFactor;
 
     return Scaffold(
       backgroundColor: Colors.white,
 
-      appBar: const AppBarGlobal(title: "login"),
+      appBar: const AppBarGlobal(title: "Inicia sesión"),
 
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 600),
+                curve: Curves.easeInOut,
                 height: headerHeight,
                 width: double.infinity,
                 child: Stack(
@@ -87,14 +118,13 @@ class _LoginPageState extends State<LoginPage> {
                       fit: BoxFit.cover,
                       alignment: Alignment.topCenter,
                     ),
-
                     Positioned(
                       left: 0,
                       right: 0,
                       bottom: -1,
                       child: ClipPath(
                         clipper: _BottomWaveClipper(),
-                        child: Container(height: 80, color: Colors.white),
+                        child: Container(height: 60, color: Colors.white),
                       ),
                     ),
                   ],
@@ -112,35 +142,56 @@ class _LoginPageState extends State<LoginPage> {
                       height: 45,
                       fit: BoxFit.contain,
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Inicia sesión',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 22),
+                    const SizedBox(height: 7),
 
-                    _Input(
+                    AppInput(
                       controller: _emailCtrl,
-                      hint: 'Correo electronico',
-                      suffix: const Icon(Icons.mail_outline, size: 20),
-                      obscure: false,
-                    ),
-                    const SizedBox(height: 16),
-                    _Input(
-                      controller: _passwordCtrl,
-                      hint: 'Contraseña',
-                      suffix: const Icon(
-                        Icons.remove_red_eye_outlined,
-                        size: 20,
-                      ),
-                      obscure: true,
+                      hint: "Correo electrónico",
+                      icon: Icons.mail_outline,
+                      type: TextInputType.emailAddress,
+                      hasError: _emailCtrlError,
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.isEmpty) {
+                            _emailCtrlError = false;
+                          } else if (!value.contains('@')) {
+                            _emailCtrlError = true;
+                          } else {
+                            _emailCtrlError = false;
+                          }
+                        });
+                      },
                     ),
 
-                    const SizedBox(height: 26),
+                    AppInput(
+                      controller: _passwordCtrl,
+                      hint: "Contraseña",
+                      icon: Icons.lock_outline,
+                      obscure: !_showPassword,
+                      hasError: _passwordCtrlError,
+                      onChanged: (value) {
+                        if (value.isNotEmpty && _passwordCtrlError) {
+                          setState(() => _passwordCtrlError = false);
+                        }
+                      },
+                    ),
+
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _showPassword,
+                          activeColor: AppColors.joli,
+                          onChanged: (value) {
+                            setState(() {
+                              _showPassword = value!;
+                            });
+                          },
+                        ),
+                        const Text("Mostrar contraseñas"),
+                      ],
+                    ),
+
+                    const SizedBox(height: 16),
 
                     SizedBox(
                       width: double.infinity,
@@ -148,20 +199,20 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: _loading ? null : _login,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
+                          backgroundColor: AppColors.joli,
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(28),
                           ),
                         ),
-                        child: _loading
-                            ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                            : const Text(
-                                'Iniciar',
-                                style: TextStyle(fontSize: 17),
-                              ),
+                        child: const Text(
+                          'Iniciar',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
 
@@ -198,25 +249,51 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 22),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
                           '¿No tienes cuenta?',
-                          style: TextStyle(color: Colors.black54, fontSize: 14),
+                          style: TextStyle(color: Colors.black54, fontSize: 17),
                         ),
                         const SizedBox(width: 6),
                         GestureDetector(
                           onTap: () {
-                            go(context, '/registro');
+                            go(context, '/registro/preregistro');
                           },
                           child: Text(
                             'Crear cuenta',
                             style: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 14,
+                              color: AppColors.joli,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          '¿Olvidaste tu contraseña?',
+                          style: TextStyle(color: Colors.black54, fontSize: 17),
+                        ),
+                        const SizedBox(height: 6),
+                        GestureDetector(
+                          onTap: () {
+                            go(context, '/recover/password');
+                          },
+                          child: Text(
+                            'Recuperar contraseña',
+                            style: TextStyle(
+                              color: AppColors.joli,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -227,64 +304,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _Input extends StatelessWidget {
-  const _Input({
-    required this.hint,
-    required this.suffix,
-    required this.obscure,
-    required this.controller,
-  });
-
-  final String hint;
-  final Widget suffix;
-  final bool obscure;
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 52,
-      child: TextField(
-        controller: controller,
-        obscureText: obscure,
-        style: const TextStyle(fontSize: 20, color: Colors.black87),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: const TextStyle(
-            color: Color.fromARGB(255, 91, 91, 91),
-            fontSize: 19,
-          ),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.only(right: 6),
-            child: IconTheme(
-              data: const IconThemeData(color: Color(0xFFB9B9B9)),
-              child: suffix,
-            ),
-          ),
-          suffixIconConstraints: const BoxConstraints(minWidth: 44),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 18,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(color: Color(0xFFE5E5E5), width: 1),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(
-              color: Color.fromARGB(255, 0, 111, 155),
-              width: 1,
-            ),
           ),
         ),
       ),

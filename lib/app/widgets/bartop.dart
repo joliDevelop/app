@@ -10,7 +10,7 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 0, 153, 192),
+      backgroundColor: AppColors.joli,
       elevation: 0,
       surfaceTintColor: AppColors.background,
       title: Row(
