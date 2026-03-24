@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../app/theme/app_colors.dart';
-import '../app/widgets/bartop.dart';
-import '../app/widgets/barbottom.dart';
-import '../app/widgets/side_menu.dart';
-import '../app/services/general_service.dart';
+import '../core/theme/app_colors.dart';
+import '../core/widgets/bartop.dart';
+import '../core/widgets/barbottom.dart';
+import '../core/widgets/side_menu.dart';
+import '../core/services/loading_service.dart';
 
 class HomeShell extends StatelessWidget {
   const HomeShell({

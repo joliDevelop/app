@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../app/theme/app_colors.dart';
-import '../../app/providers/sesion_provider.dart';
 import 'package:provider/provider.dart';
+// paleta de colores 
+import '../../core/theme/app_colors.dart';
+// Revisa las sesiones, estados de la sesión 
+import '../../core/providers/sesion_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,7 +20,8 @@ class HomePage extends StatelessWidget {
           /// SALUDO
           if (user != null) ...[
             Text(
-              'Hola ${user['nombre']} 👋',
+              'Hola ${user.nombre} 👋',
+              // 'Hola ... 👋',
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,

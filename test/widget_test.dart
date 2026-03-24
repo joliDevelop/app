@@ -2,7 +2,7 @@
 // No prueba lógica de negocio, solo que la UI básica se construye.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:joli/app/app.dart';
+import 'package:joli/core/app.dart';
 
 void main() {
   testWidgets('App builds', (WidgetTester tester) async {
