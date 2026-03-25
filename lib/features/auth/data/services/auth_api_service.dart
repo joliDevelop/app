@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-// peticiones API 
+// peticiones API
 import '../../../../core/config/api_config.dart';
-// Modelo 
+// Modelo
 import '../models/auth_response_model.dart';
 
 class AuthService {
@@ -16,9 +16,12 @@ class AuthService {
       body: jsonEncode({'email': email, 'password': password}),
     );
 
-    
-  final data = jsonDecode(response.body);
-
-  return AuthResponseModel.fromJson(data);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return AuthResponseModel.fromJson(data);
+    } else {
+      final data = jsonDecode(response.body);
+      throw Exception(data['message'] ?? 'Error en login');
+    }
   }
 }
