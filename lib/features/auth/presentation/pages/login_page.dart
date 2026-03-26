@@ -71,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
       showSuccessSnackBar(context, 'Bienvenido de nuevo, ${user.nombre}!');
 
       go(context, '/home');
+    } else {
+      showErrorSnackBar(context, response['message'] ?? 'Error desconocido');
     }
   }
 

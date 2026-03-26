@@ -13,11 +13,20 @@ class SuccessMessagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _openEmailApp() async {
-      final Uri emailLaunchUri = Uri(scheme: 'mailto');
+    Future<void> openEmailApp() async {
+      final gmail = Uri.parse('googlegmail://');
+      final outlook = Uri.parse('ms-outlook://');
+      final mail = Uri.parse('message://');
+      final generic = Uri(scheme: 'mailto');
 
-      if (await canLaunchUrl(emailLaunchUri)) {
-        await launchUrl(emailLaunchUri);
+      if (await canLaunchUrl(gmail)) {
+        await launchUrl(gmail, mode: LaunchMode.externalApplication);
+      } else if (await canLaunchUrl(outlook)) {
+        await launchUrl(outlook, mode: LaunchMode.externalApplication);
+      } else if (await canLaunchUrl(mail)) {
+        await launchUrl(mail, mode: LaunchMode.externalApplication);
+      } else {
+        await launchUrl(generic, mode: LaunchMode.externalApplication);
       }
     }
 
@@ -67,7 +76,7 @@ class SuccessMessagePage extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton.icon(
-                  onPressed: _openEmailApp,
+                  onPressed: openEmailApp,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
