@@ -16,12 +16,13 @@ class AuthService {
       body: jsonEncode({'email': email, 'password': password}),
     );
 
+    final data = jsonDecode(response.body);
+
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
       return AuthResponseModel.fromJson(data);
     } else {
       final data = jsonDecode(response.body);
-      throw Exception(data['message'] ?? 'Error en login');
+      throw Exception(data['message'] ?? ' Error de conexion - 100-L');
     }
   }
 }
