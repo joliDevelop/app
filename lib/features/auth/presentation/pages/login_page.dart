@@ -72,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
 
       go(context, '/home');
     } else {
-      showErrorSnackBar(context, response['message'] ?? 'Error desconocido');
+      debugPrint(response['message']);
+      showErrorSnackBar(context, response['message'] ?? 'Error de conexión ');
     }
   }
 
