@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // paleta de colores 
-import '../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 // Revisa las sesiones, estados de la sesión 
-import '../../core/providers/sesion_provider.dart';
+import '../../../../core/providers/sesion_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
