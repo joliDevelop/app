@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// paleta de colores 
 import '../../../../core/theme/app_colors.dart';
-// Revisa las sesiones, estados de la sesión 
 import '../../../../core/providers/sesion_provider.dart';
+import '../widgets/home_carousel.dart'; // ← widget propio de home
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,11 +16,10 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// SALUDO
+          // SALUDO
           if (user != null) ...[
             Text(
               'Hola ${user.nombre} 👋',
-              // 'Hola ... 👋',
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -31,52 +29,16 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 24),
           ],
 
-          /// HERO SECTION
+          // HERO SECTION
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// IMAGEN
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      'assets/home/peaple2.png',
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-
-                  /// BADGE
-                  Positioned(
-                    bottom: 14,
-                    left: 14,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Text(
-                        'CONFIANZA Y SEGURIDAD',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // CARRUSEL ← reemplaza el Stack anterior con peaple2.png
+              const HeroCarousel(),
 
               const SizedBox(height: 24),
 
-              /// TITULO PRINCIPAL
+              // TITULO PRINCIPAL
               const Text(
                 'Planifica tu futuro\ncon Joli',
                 style: TextStyle(
@@ -89,7 +51,7 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              /// DESCRIPCION
+              // DESCRIPCION
               RichText(
                 text: const TextSpan(
                   style: TextStyle(
@@ -116,7 +78,7 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              /// BOTON
+              // BOTON
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
@@ -140,7 +102,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
 
-          /// TITULO
+          // TITULO MODALIDAD 40
           Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -152,7 +114,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -161,7 +123,7 @@ class HomePage extends StatelessWidget {
 
           const SizedBox(height: 18),
 
-          /// CARD PRINCIPAL
+          // CARD MODALIDAD 40
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -180,7 +142,6 @@ class HomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// IMAGEN
                   ClipRRect(
                     borderRadius: BorderRadius.circular(14),
                     child: Image.asset(
@@ -190,10 +151,7 @@ class HomePage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
-                  /// TITULO CARD
                   const Text(
                     'Aumenta tu pensión',
                     style: TextStyle(
@@ -202,10 +160,7 @@ class HomePage extends StatelessWidget {
                       color: AppColors.navy,
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
-                  /// DESCRIPCION
                   const Text(
                     'La Modalidad 40 te permite realizar aportaciones voluntarias para incrementar tu promedio salarial y semanas cotizadas significativamente.',
                     style: TextStyle(
@@ -214,10 +169,7 @@ class HomePage extends StatelessWidget {
                       color: Colors.black87,
                     ),
                   ),
-
                   const SizedBox(height: 18),
-
-                  /// BOTON
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
@@ -247,20 +199,21 @@ class HomePage extends StatelessWidget {
 
           const SizedBox(height: 40),
 
-          /// TITULO
+          // TITULO POR QUE ELEGIR JOLI
           const Center(
             child: Text(
               '¿Por qué elegir Joli?',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Colors.black,
               ),
             ),
           ),
 
           const SizedBox(height: 24),
 
+          // GRID BENEFICIOS
           GridView.count(
             crossAxisCount: 2,
             shrinkWrap: true,
@@ -273,17 +226,14 @@ class HomePage extends StatelessWidget {
                 icon: Icons.verified_user_outlined,
                 title: 'Asesoría\nCertificada',
               ),
-
               _BenefitCard(
                 icon: Icons.trending_up,
                 title: 'Maximización de\nFondos',
               ),
-
               _BenefitCard(
                 icon: Icons.assignment_turned_in_outlined,
                 title: 'Trámites Ágiles',
               ),
-
               _BenefitCard(
                 icon: Icons.support_agent_outlined,
                 title: 'Soporte 24/7',
@@ -305,7 +255,6 @@ class _BenefitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
@@ -320,7 +269,6 @@ class _BenefitCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          /// ICONO CIRCULAR
           Container(
             width: 60,
             height: 60,
@@ -330,10 +278,7 @@ class _BenefitCard extends StatelessWidget {
             ),
             child: Icon(icon, color: AppColors.primary, size: 28),
           ),
-
           const SizedBox(height: 16),
-
-          /// TEXTO
           Text(
             title,
             textAlign: TextAlign.center,
