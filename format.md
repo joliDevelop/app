@@ -65,10 +65,20 @@ flutter emulators --launch Pixel_9_Pro
 flutter run -d Pixel_9_Pro
 flutter run -d emulator-5554
 flutter run -d R5CW506S7MV
+flutter run -d R5CT11MFKKK
 
 
 flutter clean
 flutter pub get
 flutter run -d chrome
 
+## Abrir ios en xcode 
 open ios/Runner.xcworkspace
+
+
+flutter clean
+flutter pub get
+cd ios
+pod install
+cd ..
+flutter run
