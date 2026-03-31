@@ -71,8 +71,8 @@ class RegisterProvider with ChangeNotifier {
   RegisterUser buildUser() {
     return RegisterUser(
       nombre: nombre.text,
-      apellidoP: apellidoP.text,
-      apellidoM: apellidoM.text,
+      apellidop: apellidoP.text,
+      apellidom: apellidoM.text,
       edad: int.parse(edad.text),
       telefono: telefono.text,
       email: email.text,
