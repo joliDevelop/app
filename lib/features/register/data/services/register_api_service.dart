@@ -6,7 +6,7 @@ import '../../data/models/register_user_model.dart';
 class RegisterService {
   static Future<Map<String, dynamic>> preregister(RegisterUser user) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/pre-registro'),
+      Uri.parse('${ApiConfig.api}/register/pre-registro'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(user.toJson()),
     );
@@ -24,7 +24,7 @@ class RegisterService {
     required String email,
   }) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/enviar-codigo'),
+      Uri.parse('${ApiConfig.api}/register/enviar-codigo'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         "email": email,
@@ -46,7 +46,7 @@ class RegisterService {
     required String codigo,
   }) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/verificar-codigo'),
+      Uri.parse('${ApiConfig.api}/register/verificar-codigo'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({"email": email, "code": codigo}),
     );
@@ -66,7 +66,7 @@ class RegisterService {
     required String confirmPassword,
   }) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/crear-contrasena'),
+      Uri.parse('${ApiConfig.api}/register/crear-contrasena'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         "email": email,
