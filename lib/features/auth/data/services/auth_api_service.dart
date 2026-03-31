@@ -11,7 +11,7 @@ class AuthService {
     required String password,
   }) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/login'),
+      Uri.parse('${ApiConfig.api}/auth/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'email': email, 'password': password}),
     );

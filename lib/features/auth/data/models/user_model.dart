@@ -3,8 +3,8 @@
 class UserModel {
   final String id;
   final String nombre;
-  final String apellidoP;
-  final String apellidoM;
+  final String apellidop;
+  final String apellidom;
   final int edad;
   final String email;
   final String lada;
@@ -13,8 +13,8 @@ class UserModel {
   UserModel({
     required this.id,
     required this.nombre,
-    required this.apellidoP,
-    required this.apellidoM,
+    required this.apellidop,
+    required this.apellidom,
     required this.edad,
     required this.email,
     required this.lada,
@@ -25,8 +25,8 @@ class UserModel {
     return UserModel(
       id: json['_id'],
       nombre: json['nombre'],
-      apellidoP: json['apellidoP'],
-      apellidoM: json['apellidoM'],
+      apellidop: json['apellidop'],
+      apellidom: json['apellidom'],
       edad: json['edad'],
       email: json['email'],
       lada: json['lada'],
@@ -38,8 +38,8 @@ class UserModel {
     return {
       '_id': id,
       'nombre': nombre,
-      'apellidoP': apellidoP,
-      'apellidoM': apellidoM,
+      'apellidop': apellidop,
+      'apellidom': apellidom,
       'edad': edad,
       'email': email,
       'lada': lada,

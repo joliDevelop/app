@@ -7,7 +7,7 @@ class RcoverService {
     required String email,
   }) async {
     final response = await http.post(
-      Uri.parse('${ApiConfig.api}/users/recuperar-contrasena'),
+      Uri.parse('${ApiConfig.api}/recover/recuperar-contrasena'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({"email": email}),
     );

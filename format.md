@@ -71,3 +71,4 @@ flutter clean
 flutter pub get
 flutter run -d chrome
 
+open ios/Runner.xcworkspace

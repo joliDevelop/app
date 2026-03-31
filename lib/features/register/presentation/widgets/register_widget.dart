@@ -105,7 +105,7 @@ class UserInfoCard extends StatelessWidget {
           InfoRow(
             Icons.badge,
             "Apellidos",
-            "${userData["apellidoP"]} ${userData["apellidoM"]}",
+            "${userData["apellidop"]} ${userData["apellidom"]}",
           ),
           InfoRow(Icons.cake, "Edad", "${userData["edad"]} años"),
           InfoRow(Icons.phone, "Teléfono", "(+52) ${userData["telefono"]}"),
