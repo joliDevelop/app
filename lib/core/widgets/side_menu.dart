@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+//  con utilidades para acceder a estados globales.
+import 'package:provider/provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/ui_helpers.dart';
 import '../providers/sesion_provider.dart';
-//  con utilidades para acceder a estados globales.
-import 'package:provider/provider.dart';
 
 class JoliSideMenu extends StatelessWidget {
   const JoliSideMenu({super.key, this.onNavigate});

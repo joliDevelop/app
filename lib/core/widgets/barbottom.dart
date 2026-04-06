@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:joli/core/theme/app_colors.dart';
 // import '../theme/app_colors.dart';
 import '../utils/ui_helpers.dart';
 
@@ -49,6 +50,9 @@ class JoliBottomNav extends StatelessWidget {
     return NavigationBar(
       height: 70,
       elevation: 0,
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      indicatorColor: AppColors.primary,
       selectedIndex: _selectedIndex(),
       onDestinationSelected: (i) {
         final path = _navItems[i].path;

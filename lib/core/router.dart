@@ -1,12 +1,13 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'providers/sesion_provider.dart';
 import '../features/shell.dart';
 
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/register/presentation/pages/register_data_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
-import '../features/seguros/pages/home_seguros_page.dart';
+// import '../features/seguros/presentation/pages/home_seguros_page.dart';
 import '../features/pensiones/presentacion/pages/home_page.dart';
 import '../features/plan_retiro/home_page.dart';
 import '../features/inversiones/home_page.dart';
@@ -23,6 +24,7 @@ class AppPageRoute {
     required this.builder,
     this.showAppBar = true,
     this.showBottomBar = true,
+    this.requiresAuth = true,
   });
 
   final String path;
@@ -31,6 +33,7 @@ class AppPageRoute {
 
   final bool showAppBar;
   final bool showBottomBar;
+  final bool requiresAuth;
 }
 
 final appPages = <AppPageRoute>[
@@ -39,6 +42,7 @@ final appPages = <AppPageRoute>[
     title: 'Login',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) => const LoginPage(),
   ),
   // ----- -----
@@ -48,6 +52,7 @@ final appPages = <AppPageRoute>[
     title: 'Registro',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) => const RegisterDataPage(),
   ),
   AppPageRoute(
@@ -55,6 +60,7 @@ final appPages = <AppPageRoute>[
     title: 'Seleciona Verificación',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) {
       final data = state.extra as Map<String, dynamic>;
       return SelectverificationPage(userData: data);
@@ -65,6 +71,7 @@ final appPages = <AppPageRoute>[
     title: 'Verifica tu código',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) {
       final data = state.extra as Map<String, dynamic>;
       return VerificationPage(userData: data);
@@ -75,6 +82,7 @@ final appPages = <AppPageRoute>[
     title: 'Crea tu contraseña',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) {
       final data = state.extra as Map<String, dynamic>;
       return CreatePasswordPage(userData: data);
@@ -87,6 +95,7 @@ final appPages = <AppPageRoute>[
     title: 'Recuperar contraseña',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) => const RecoverPasswordPage(),
   ),
   AppPageRoute(
@@ -94,6 +103,7 @@ final appPages = <AppPageRoute>[
     title: 'Mensaje enviado a tu correo',
     showAppBar: false,
     showBottomBar: false,
+    requiresAuth: false,
     builder: (context, state) => const SuccessMessagePage(),
   ),
   // ----- -----
@@ -104,13 +114,13 @@ final appPages = <AppPageRoute>[
     showBottomBar: true,
     builder: (context, state) => const HomePage(),
   ),
-  AppPageRoute(
-    path: '/seguros/home',
-    title: 'Seguros',
-    showAppBar: true,
-    showBottomBar: true,
-    builder: (context, state) => const HomeSegurosPage(),
-  ),
+  // AppPageRoute(
+  //   path: '/seguros/home',
+  //   title: 'Seguros',
+  //   showAppBar: true,
+  //   showBottomBar: true,
+  //   builder: (context, state) => const HomeSegurosPage(),
+  // ),
   AppPageRoute(
     path: '/pensiones/home',
     title: 'Pensiones',
@@ -151,27 +161,78 @@ AppPageRoute _pageForPath(String path) {
 Widget _emptyBuilder(BuildContext context, GoRouterState state) =>
     const SizedBox.shrink();
 
-final router = GoRouter(
-  initialLocation: '/home',
-  routes: [
-    GoRoute(path: '/', redirect: (_, __) => '/home'),
+GoRouter buildRouter(SesionProvider sesionProvider) {
+  return GoRouter(
+    initialLocation: '/splash',
+    refreshListenable: sesionProvider,
+    redirect: (context, state) {
+      final path = state.matchedLocation;
+      final page = _pageForPath(path);
 
-    ShellRoute(
-      builder: (context, state, child) {
-        final path = state.uri.path;
-        final page = _pageForPath(path);
+      final isSplash = path == '/splash';
+      final isSessionReady = sesionProvider.sessionReady;
+      final isLogged = sesionProvider.isLogged;
+      final isPublic = page.path.isNotEmpty && !page.requiresAuth;
 
-        return HomeShell(
-          location: path,
-          title: page.title,
-          showAppBar: page.showAppBar,
-          showBottomBar: page.showBottomBar,
-          child: child,
-        );
-      },
-      routes: [
-        for (final p in appPages) GoRoute(path: p.path, builder: p.builder),
-      ],
-    ),
-  ],
-);
+      if (!isSessionReady) {
+        return isSplash ? null : '/splash';
+      }
+
+      if (isSplash) {
+        return isLogged ? '/home' : '/login';
+      }
+
+      if (!isLogged && !isPublic) {
+        return '/login';
+      }
+
+      if (isLogged && isPublic) {
+        return '/home';
+      }
+
+      return null;
+    },
+    routes: [
+      GoRoute(path: '/', redirect: (context, state) => '/home'),
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const _SplashGatePage(),
+      ),
+      ShellRoute(
+        builder: (context, state, child) {
+          final path = state.uri.path;
+          final page = _pageForPath(path);
+
+          return HomeShell(
+            location: path,
+            title: page.title,
+            showAppBar: page.showAppBar,
+            showBottomBar: page.showBottomBar,
+            child: child,
+          );
+        },
+        routes: [
+          for (final p in appPages) GoRoute(path: p.path, builder: p.builder),
+        ],
+      ),
+    ],
+  );
+}
+
+class _SplashGatePage extends StatelessWidget {
+  const _SplashGatePage();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Directionality(
+      textDirection: TextDirection.ltr,
+      child: Center(
+        child: SizedBox(
+          width: 28,
+          height: 28,
+          child: CircularProgressIndicator(strokeWidth: 2.5),
+        ),
+      ),
+    );
+  }
+}
