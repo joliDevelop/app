@@ -14,15 +14,28 @@ class SesionProvider extends ChangeNotifier {
 
   UserModel? _user;
   UserModel? get user => _user;
+  bool _sessionReady = false;
+  bool get sessionReady => _sessionReady;
 
   bool get isLogged => _user != null && _token != null;
 
   Future<void> loadSession() async {
-    final userMap = await StorageService.getUser();
-    _token = await StorageService.getToken();
+    try {
+      final userMap = await StorageService.getUser();
+      _token = await StorageService.getToken();
 
-    if (userMap != null) {
-      _user = UserModel.fromJson(userMap);
+      if (userMap != null) {
+        _user = UserModel.fromJson(userMap);
+      } else {
+        _user = null;
+      }
+    } catch (_) {
+      // Si la sesión guardada está corrupta/incompatible, evitamos crash en arranque.
+      await StorageService.clearSession();
+      _user = null;
+      _token = null;
+    } finally {
+      _sessionReady = true;
     }
 
     notifyListeners();

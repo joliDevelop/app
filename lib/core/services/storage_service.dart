@@ -27,9 +27,25 @@ class StorageService {
   static Future<Map<String, dynamic>?> getUser() async {
     final userString = await _storage.read(key: _userKey);
 
-    if (userString == null) return null;
+    if (userString == null || userString.trim().isEmpty) return null;
 
-    return jsonDecode(userString);
+    try {
+      final decoded = jsonDecode(userString);
+
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+
+      if (decoded is Map) {
+        return decoded.map(
+          (key, value) => MapEntry(key.toString(), value),
+        );
+      }
+
+      return null;
+    } catch (_) {
+      return null;
+    }
   }
 
   // Logout

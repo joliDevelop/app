@@ -22,15 +22,20 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    final edadRaw = json['edad'];
+    final edadValue = edadRaw is int
+        ? edadRaw
+        : int.tryParse(edadRaw?.toString() ?? '') ?? 0;
+
     return UserModel(
-      id: json['_id'],
-      nombre: json['nombre'],
-      apellidop: json['apellidop'],
-      apellidom: json['apellidom'],
-      edad: json['edad'],
-      email: json['email'],
-      lada: json['lada'],
-      telefono: json['telefono'],
+      id: (json['_id'] ?? '').toString(),
+      nombre: (json['nombre'] ?? '').toString(),
+      apellidop: (json['apellidop'] ?? '').toString(),
+      apellidom: (json['apellidom'] ?? '').toString(),
+      edad: edadValue,
+      email: (json['email'] ?? '').toString(),
+      lada: (json['lada'] ?? '').toString(),
+      telefono: (json['telefono'] ?? '').toString(),
     );
   }
 
