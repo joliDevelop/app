@@ -7,7 +7,7 @@ import '../features/shell.dart';
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/register/presentation/pages/register_data_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
-// import '../features/seguros/presentation/pages/home_seguros_page.dart';
+import '../features/seguros/pages/home_seguros_page.dart';
 import '../features/pensiones/presentacion/pages/home_page.dart';
 import '../features/plan_retiro/home_page.dart';
 import '../features/inversiones/home_page.dart';
@@ -114,13 +114,13 @@ final appPages = <AppPageRoute>[
     showBottomBar: true,
     builder: (context, state) => const HomePage(),
   ),
-  // AppPageRoute(
-  //   path: '/seguros/home',
-  //   title: 'Seguros',
-  //   showAppBar: true,
-  //   showBottomBar: true,
-  //   builder: (context, state) => const HomeSegurosPage(),
-  // ),
+  AppPageRoute(
+    path: '/seguros/home',
+    title: 'Seguros',
+    showAppBar: true,
+    showBottomBar: true,
+    builder: (context, state) => const HomeSegurosPage(),
+  ),
   AppPageRoute(
     path: '/pensiones/home',
     title: 'Pensiones',
