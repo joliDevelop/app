@@ -10,7 +10,7 @@ import '../features/home/presentation/pages/home_page.dart';
 import '../features/seguros/pages/home_seguros_page.dart';
 import '../features/seguros/pages/seguro_especifico_page.dart';
 import '../features/pensiones/presentacion/pages/home_page.dart';
-import '../features/plan_retiro/home_page.dart';
+import '../features/plan_retiro/presentacion/pages/home_page.dart';
 import '../features/inversiones/home_page.dart';
 import '../features/register/presentation/pages/select_verification_page.dart';
 import '../features/register/presentation/pages/verification_page.dart';
