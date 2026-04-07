@@ -24,7 +24,7 @@ class SeguroCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border(top: BorderSide(color: primaryColor, width: 4)),
+        border: Border(top: BorderSide(color: primaryColor, width: 1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class SeguroCard extends StatelessWidget {
                       Text(
                         seguro.nombre,
                         style: const TextStyle(
-                          fontSize: 15,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 0, 0, 0),
                           height: 1.3,

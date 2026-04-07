@@ -13,6 +13,7 @@ class JoliSideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLogged = context.watch<SesionProvider>().isLogged;
+    final user = context.watch<SesionProvider>().user;
 
     return Drawer(
       backgroundColor: AppColors.background,
@@ -20,34 +21,37 @@ class JoliSideMenu extends StatelessWidget {
         child: Column(
           children: [
             // Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-              child: Row(
-                children: [
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.15),
-                      shape: BoxShape.circle,
+            if (user != null) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.person, color: AppColors.navy),
                     ),
-                    child: const Icon(Icons.person, color: AppColors.navy),
-                  ),
 
-                  const SizedBox(width: 12),
+                    const SizedBox(width: 12),
 
-                  Expanded(
-                    child: Text(
-                      'Sebastian',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.navy,
-                        fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Text(
+                        '${user.nombre} ${user.apellidop} ${user.apellidom}',
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              color: AppColors.navy,
+                              fontWeight: FontWeight.w700,
+                            ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
 
             const Divider(height: 1, color: AppColors.border),
 
@@ -114,7 +118,7 @@ class JoliSideMenu extends StatelessWidget {
                 icon: Icons.logout,
                 title: 'Cerrar sesión',
                 danger: true,
-                
+
                 onTap: () async {
                   final confirm = await showConfirmDialog(
                     context,

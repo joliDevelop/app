@@ -21,7 +21,7 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
             Text(
               location,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 color: const Color.fromARGB(255, 255, 255, 255),
               ),
             ),
@@ -29,6 +29,13 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
+        IconButton(
+          onPressed: () {
+          },
+          icon: const Icon(Icons.support_agent),
+          color: Colors.white,
+          tooltip: 'Asesoría',
+        ),
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.notifications_none),
