@@ -1,76 +1,30 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+// import '../../../../core/theme/app_colors.dart';
 import '../models/seguro_model.dart';
+import '../config/seguro_ui_config.dart';
 
 class SeguroCard extends StatelessWidget {
   final SeguroModel seguro;
   final VoidCallback onVerDetalle;
-  final VoidCallback onSimular;
 
   const SeguroCard({
     super.key,
     required this.seguro,
     required this.onVerDetalle,
-    required this.onSimular,
   });
-
-  // Colores y configuración por tipo
-  _TipoConfig _getConfig() {
-    switch (seguro.tipo) {
-      case TipoSeguro.gastosMedicosMayores:
-        return _TipoConfig(
-          color: const Color(0xFF00BCD4),
-          icono: Icons.local_hospital_rounded,
-          gradiente: [const Color(0xFF00BCD4), const Color(0xFF0097A7)],
-        );
-      case TipoSeguro.vida:
-        return _TipoConfig(
-          color: const Color(0xFF1A3A5C),
-          icono: Icons.favorite_rounded,
-          gradiente: [const Color(0xFF1A3A5C), const Color(0xFF0D2137)],
-        );
-      case TipoSeguro.danos:
-        return _TipoConfig(
-          color: const Color(0xFFFF6B35),
-          icono: Icons.home_rounded,
-          gradiente: [const Color(0xFFFF6B35), const Color(0xFFE55A25)],
-        );
-      case TipoSeguro.viaje:
-        return _TipoConfig(
-          color: const Color(0xFF6C63FF),
-          icono: Icons.flight_rounded,
-          gradiente: [const Color(0xFF6C63FF), const Color(0xFF5A52E0)],
-        );
-      case TipoSeguro.autoYFlotilla:
-        return _TipoConfig(
-          color: const Color(0xFF2ECC71),
-          icono: Icons.directions_car_rounded,
-          gradiente: [const Color(0xFF2ECC71), const Color(0xFF27AE60)],
-        );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    final cfg = _getConfig();
+    final cfg = SeguroUI.configs[seguro.tipo]!;
+    final gradient = SeguroUI.getGradient(seguro.tipo);
+    final primaryColor = gradient.first;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: cfg.color.withOpacity(.15),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(.04),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        border: Border(top: BorderSide(color: primaryColor, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,11 +33,7 @@ class SeguroCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: cfg.gradiente,
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
+              color: const Color.fromARGB(255, 255, 255, 255),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
@@ -95,7 +45,7 @@ class SeguroCard extends StatelessWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.2),
+                    color: const Color.fromARGB(255, 0, 0, 0).withOpacity(.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(cfg.icono, color: Colors.white, size: 22),
@@ -111,7 +61,7 @@ class SeguroCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 0, 0, 0),
                           height: 1.3,
                         ),
                       ),
@@ -122,14 +72,14 @@ class SeguroCard extends StatelessWidget {
                           vertical: 3,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(.25),
+                          color: const Color.fromARGB(255, 0, 0, 0).withOpacity(.25),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           seguro.tipo.label,
                           style: const TextStyle(
                             fontSize: 11,
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                             fontWeight: FontWeight.w600,
                             letterSpacing: .3,
                           ),
@@ -144,14 +94,14 @@ class SeguroCard extends StatelessWidget {
                   children: [
                     const Text(
                       'Desde',
-                      style: TextStyle(fontSize: 11, color: Colors.white70),
+                      style: TextStyle(fontSize: 11, color: Color.fromARGB(179, 0, 0, 0)),
                     ),
                     Text(
                       '\$${seguro.precioMensual.toStringAsFixed(0)}',
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const Text(
@@ -190,7 +140,7 @@ class SeguroCard extends StatelessWidget {
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: cfg.color.withOpacity(.05),
+                    color: primaryColor.withOpacity(.05),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -203,12 +153,12 @@ class SeguroCard extends StatelessWidget {
                               width: 20,
                               height: 20,
                               decoration: BoxDecoration(
-                                color: cfg.color.withOpacity(.15),
+                                color: primaryColor.withOpacity(.15),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.check_rounded,
-                                color: cfg.color,
+                                color: primaryColor,
                                 size: 13,
                               ),
                             ),
@@ -235,32 +185,7 @@ class SeguroCard extends StatelessWidget {
                 // ── BOTONES ───────────────────────────────────
                 Row(
                   children: [
-                    // Simular — outlined
-                    // Expanded(
-                    //   child: OutlinedButton.icon(
-                    //     onPressed: onSimular,
-                    //     icon: Icon(
-                    //       Icons.calculate_outlined,
-                    //       size: 16,
-                    //       color: cfg.color,
-                    //     ),
-                    //     label: Text(
-                    //       'Simular',
-                    //       style: TextStyle(
-                    //         color: cfg.color,
-                    //         fontWeight: FontWeight.w600,
-                    //         fontSize: 13,
-                    //       ),
-                    //     ),
-                    //     style: OutlinedButton.styleFrom(
-                    //       side: BorderSide(color: cfg.color.withOpacity(.5)),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(12),
-                    //       ),
-                    //       padding: const EdgeInsets.symmetric(vertical: 12),
-                    //     ),
-                    //   ),
-                    // ),
+                   
                     const SizedBox(width: 10),
                     // Ver más — filled
                     Expanded(
@@ -280,7 +205,7 @@ class SeguroCard extends StatelessWidget {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: cfg.color,
+                          backgroundColor: primaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -298,17 +223,4 @@ class SeguroCard extends StatelessWidget {
       ),
     );
   }
-}
-
-// Clase auxiliar de configuración visual por tipo
-class _TipoConfig {
-  final Color color;
-  final IconData icono;
-  final List<Color> gradiente;
-
-  const _TipoConfig({
-    required this.color,
-    required this.icono,
-    required this.gradiente,
-  });
 }
