@@ -84,16 +84,16 @@ class HomePage extends StatelessWidget {
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   onPressed: () {},
-                  icon: const Icon(Icons.calculate_outlined),
+                  icon: const Icon(Icons.calculate_outlined, color: AppColors.background, size: 25,),
                   label: const Text(
                     'Simular mi Pensión',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.background),
                   ),
                 ),
               ),

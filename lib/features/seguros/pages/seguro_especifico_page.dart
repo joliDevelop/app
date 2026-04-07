@@ -104,7 +104,7 @@ class SeguroEspecificoPage extends StatelessWidget {
                                     Text(
                                       cfg.titulo,
                                       style: const TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),

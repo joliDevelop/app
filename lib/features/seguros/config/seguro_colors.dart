@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import '../models/seguro_model.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class SeguroColors {
-  static const joliBlue = Color.fromARGB(255, 11, 193, 238);
+  static const joliBlue = AppColors.joli;
 
   static const gradients = <TipoSeguro, List<Color>>{
     TipoSeguro.gastosMedicosMayores: [
-      Color(0xFF26A69A), // teal
       joliBlue,
+      Color(0xFF4FC3F7),
     ],
     TipoSeguro.vida: [
-      Color.fromARGB(255, 193, 2, 193), // gris elegante
       joliBlue,
+      Color(0xFF1E88E5),
     ],
     TipoSeguro.danos: [
-      Color.fromARGB(255, 215, 20, 20), // naranja profundo
       joliBlue,
+      Color(0xFF1565C0), 
     ],
     TipoSeguro.viaje: [
-      Color.fromARGB(255, 77, 80, 211), // morado moderno
       joliBlue,
+      Color(0xFF64B5F6),
     ],
     TipoSeguro.autoYFlotilla: [
-      Color.fromARGB(255, 7, 191, 16), // verde sólido
       joliBlue,
+      Color(0xFF0D47A1),
     ],
   };
 }

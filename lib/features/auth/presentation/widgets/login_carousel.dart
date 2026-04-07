@@ -12,8 +12,8 @@ class _LoginCarouselState extends State<LoginCarousel> {
   final PageController _controller = PageController();
 
   final List<String> images = [
-    'assets/home/peaple1.png',
-    'assets/home/peaple2.png',
+    'assets/auth/A2.png',
+    'assets/auth/A1.png',
     'assets/home/peaple3.png',
     'assets/home/peaple4.png',
   ];
