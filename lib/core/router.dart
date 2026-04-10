@@ -146,10 +146,10 @@ final appPages = <AppPageRoute>[
   ),
   AppPageRoute(
     path: '/retiro/home',
-    title: 'Plan de Retiro',
+    title: 'Plan de retiro',
     showAppBar: true,
     showBottomBar: true,
-    builder: (context, state) => const HomePlanRetiro(),
+    builder: (context, state) => const RetiroPage(),
   ),
   AppPageRoute(
     path: '/inversiones/home',
