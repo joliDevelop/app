@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../models/seguro_model.dart';
 import '../config/seguro_ui_config.dart';
 
@@ -72,14 +72,14 @@ class SeguroCard extends StatelessWidget {
                           vertical: 3,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 0, 0, 0).withOpacity(.25),
+                          color: AppColors.joli,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           seguro.tipo.label,
                           style: const TextStyle(
                             fontSize: 11,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                          color: AppColors.background,
                             fontWeight: FontWeight.w600,
                             letterSpacing: .3,
                           ),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// paleta de colores 
 import '../../../../core/theme/app_colors.dart';
+// imput de formularios 
 import '../../../../core/widgets/app_input.dart';
+// spinner cargando 
 import '../../../../core/services/loading_service.dart';
+// funciones globales de funcionalidad go, alerts, modal de confimación 
 import '../../../../core/utils/ui_helpers.dart';
+// Se crean las seciones 
 import '../../../../core/providers/sesion_provider.dart';
-
 import '../providers/auth_provider.dart';
 
 class LoginForm extends StatefulWidget {

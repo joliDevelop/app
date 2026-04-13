@@ -83,7 +83,7 @@ class _LoginCarouselState extends State<LoginCarousel> {
 
         // Indicador
         Positioned(
-          top: 20,
+          top: 60,
           left: 0,
           right: 0,
           child: LoginIndicator(
