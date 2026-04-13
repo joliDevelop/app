@@ -5,20 +5,26 @@ import 'providers/sesion_provider.dart';
 import '../features/shell.dart';
 
 import '../features/auth/presentation/pages/login_page.dart';
-import '../features/register/presentation/pages/register_data_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
-import '../features/seguros/pages/home_seguros_page.dart';
-import '../features/seguros/pages/seguro_especifico_page.dart';
+// PENSIONES 
 import '../features/pensiones/presentacion/pages/home_page.dart';
+import '../features/pensiones/presentacion/pages/modalidad_40/m40_home_page.dart';
+// PLAN DE RETIRO 
 import '../features/plan_retiro/presentacion/pages/home_page.dart';
+// INVERSIONES 
 import '../features/inversiones/home_page.dart';
+// REGISTRO  
 import '../features/register/presentation/pages/select_verification_page.dart';
 import '../features/register/presentation/pages/verification_page.dart';
 import '../features/register/presentation/pages/password_page.dart';
+import '../features/register/presentation/pages/register_data_page.dart';
+// RECUPERAR PASSWORD 
 import '../features/recover_pasword/presentation/pages/recover.dart';
 import '../features/recover_pasword/presentation/pages/msj_success.dart';
-
+// SEGUROS 
 import '../features/seguros/models/seguro_model.dart';
+import '../features/seguros/pages/home_seguros_page.dart';
+import '../features/seguros/pages/seguro_especifico_page.dart';
 
 class AppPageRoute {
   const AppPageRoute({
@@ -137,6 +143,7 @@ final appPages = <AppPageRoute>[
     },
   ),
   // ----- -----
+  // Pensiones 
   AppPageRoute(
     path: '/pensiones/home',
     title: 'Pensiones',
@@ -144,6 +151,14 @@ final appPages = <AppPageRoute>[
     showBottomBar: true,
     builder: (context, state) => const HomePensionesPage(),
   ),
+  AppPageRoute(
+    path: '/pensiones/modalidad/40',
+    title: 'Modalida 40',
+    showAppBar: false,
+    showBottomBar: false,
+    builder: (context, state) => const Modalidad40(),
+  ),
+  // ----- -----
   AppPageRoute(
     path: '/retiro/home',
     title: 'Plan de Retiro',

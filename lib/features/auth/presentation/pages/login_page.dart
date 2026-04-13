@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/dinamicbar.dart';
+// import '../../../../core/widgets/dinamicbar.dart';
 import '../widgets/login_bottom_sheet.dart';
 import '../widgets/login_carousel.dart';
 
@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarGlobal(title: "Bienvenido"),
+      // appBar: const AppBarGlobal(title: "Bienvenido"),
       body: Stack(
         children: [
           const SizedBox.expand(child: LoginCarousel()),

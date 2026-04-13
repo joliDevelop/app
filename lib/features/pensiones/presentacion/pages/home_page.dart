@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-// import '../widgets/pensiones_header.dart';
 import '../widgets/pensiones_intro.dart';
 import '../widgets/pensiones_card.dart';
+// paleta de colores 
 import '../../../../core/theme/app_colors.dart';
+// funciones globales de funcionalidad go, alerts, modal de confimación 
+import '../../../../core/utils/ui_helpers.dart';
 
 class HomePensionesPage extends StatelessWidget {
   const HomePensionesPage({super.key});
@@ -27,7 +29,7 @@ class HomePensionesPage extends StatelessWidget {
                 subtitle: "Aumenta tu pensión hasta 300%.",
                 icon: Icons.trending_up,
                 highlight: false,
-                onTap: () {},
+                onTap: () => go(context, '/pensiones/modalidad/40'),
               ),
 
               const SizedBox(height: 20),
@@ -42,14 +44,14 @@ class HomePensionesPage extends StatelessWidget {
 
               const SizedBox(height: 20),
               
-              PensionesCard(
-                title: "Simular mi Pensión",
-                subtitle:
-                    "Ingresa y simula tu pensión para ver un estimado con Joli",
-                icon: Icons.calculate,
-                highlight: true,
-                onTap: () {},
-              ),
+              // PensionesCard(
+              //   title: "Simular mi Pensión",
+              //   subtitle:
+              //       "Ingresa y simula tu pensión para ver un estimado con Joli",
+              //   icon: Icons.calculate,
+              //   highlight: true,
+              //   onTap: () {},
+              // ),
             ],
           ),
         ),
