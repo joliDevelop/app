@@ -1,6 +1,6 @@
-// import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../../features/asesoria/presentacion/pages/asesoria_page.dart';
 
 class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
   const JoliAppBar({super.key, required this.location});
@@ -15,15 +15,14 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: AppColors.background,
       title: Row(
         children: [
-          // Título dinámico
           if (location.trim().isNotEmpty) ...[
             const SizedBox(width: 5),
             Text(
               location,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                  ),
             ),
           ],
         ],
@@ -31,6 +30,11 @@ class JoliAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const AsesoriaPage(),
+              ),
+            );
           },
           icon: const Icon(Icons.support_agent),
           color: Colors.white,
