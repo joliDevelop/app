@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:joli/features/asesoria/data/asesoria_model.dart';
+
+import '../../data/asesoria_model.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class BurbujaBot extends StatelessWidget {
   final String texto;
@@ -22,7 +24,7 @@ class BurbujaBot extends StatelessWidget {
             margin: const EdgeInsets.only(right: 8, bottom: 2),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF0D3B8E), Color(0xFF1E88E5)],
+                colors: [AppColors.navy, AppColors.joli],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -49,9 +51,10 @@ class BurbujaBot extends StatelessWidget {
                   bottomRight: Radius.circular(18),
                   bottomLeft: Radius.circular(4),
                 ),
+                border: Border.all(color: AppColors.border),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.06),
+                    color: AppColors.dark.withOpacity(0.06),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -61,7 +64,7 @@ class BurbujaBot extends StatelessWidget {
                 texto,
                 style: const TextStyle(
                   fontSize: 15.5,
-                  color: Color(0xFF1F2A44),
+                  color: AppColors.dark,
                   height: 1.5,
                 ),
               ),
@@ -99,7 +102,7 @@ class BurbujaUsuario extends StatelessWidget {
               ),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF0D3B8E), Color(0xFF1565C0)],
+                  colors: [AppColors.navy, AppColors.joli],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -112,7 +115,7 @@ class BurbujaUsuario extends StatelessWidget {
               ),
               child: Text(
                 texto,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15.5,
                   color: Colors.white,
                   height: 1.5,
@@ -158,11 +161,11 @@ class OpcionesChat extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(22),
                   border: Border.all(
-                    color: const Color(0xFF1565C0).withOpacity(0.35),
+                    color: AppColors.joli.withOpacity(0.35),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: AppColors.dark.withOpacity(0.05),
                       blurRadius: 6,
                       offset: const Offset(0, 2),
                     ),
@@ -172,7 +175,7 @@ class OpcionesChat extends StatelessWidget {
                   opcion.texto,
                   style: const TextStyle(
                     fontSize: 14.5,
-                    color: Color(0xFF1565C0),
+                    color: AppColors.navy,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -210,10 +213,10 @@ class ContactoCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: const Color(0xFFE7EBF0)),
+            border: Border.all(color: AppColors.border),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: AppColors.dark.withOpacity(0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 3),
               ),
@@ -227,7 +230,7 @@ class ContactoCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1F2A44),
+                  color: AppColors.dark,
                 ),
               ),
               const SizedBox(height: 4),
@@ -235,7 +238,7 @@ class ContactoCard extends StatelessWidget {
                 'Estamos listos para ayudarte de forma personalizada.',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.black45,
+                  color: AppColors.textMuted,
                   height: 1.4,
                 ),
               ),
@@ -243,21 +246,21 @@ class ContactoCard extends StatelessWidget {
               _ContactoBtn(
                 icono: Icons.chat_rounded,
                 label: 'WhatsApp',
-                color: const Color(0xFF25D366),
+                color: AppColors.primary,
                 onTap: onWhatsApp,
               ),
               const SizedBox(height: 8),
               _ContactoBtn(
                 icono: Icons.phone_rounded,
                 label: 'Llamar',
-                color: const Color(0xFF1565C0),
+                color: AppColors.navy,
                 onTap: onTelefono,
               ),
               const SizedBox(height: 8),
               _ContactoBtn(
                 icono: Icons.email_rounded,
                 label: 'Correo electrónico',
-                color: const Color(0xFFE53935),
+                color: AppColors.joli,
                 onTap: onCorreo,
               ),
             ],
@@ -356,7 +359,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
             margin: const EdgeInsets.only(right: 8, bottom: 2),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF0D3B8E), Color(0xFF1E88E5)],
+                colors: [AppColors.navy, AppColors.joli],
               ),
               shape: BoxShape.circle,
             ),
@@ -374,9 +377,10 @@ class _TypingIndicatorState extends State<TypingIndicator>
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: AppColors.border),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
+                  color: AppColors.dark.withOpacity(0.06),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -401,7 +405,7 @@ class _TypingIndicatorState extends State<TypingIndicator>
                           width: 8,
                           height: 8,
                           decoration: const BoxDecoration(
-                            color: Color(0xFF1565C0),
+                            color: AppColors.joli,
                             shape: BoxShape.circle,
                           ),
                         ),

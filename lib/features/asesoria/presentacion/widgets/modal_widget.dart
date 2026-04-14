@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:joli/features/asesoria/presentacion/pages/asesoria_page.dart';
+
+import '../pages/asesoria_page.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class AsesoriaModal extends StatelessWidget {
   const AsesoriaModal({super.key});
@@ -9,7 +11,7 @@ class AsesoriaModal extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.92,
       decoration: const BoxDecoration(
-        color: Color(0xFFF5F7FB),
+        color: AppColors.background,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(24),
         ),
@@ -21,7 +23,7 @@ class AsesoriaModal extends StatelessWidget {
             width: 48,
             height: 5,
             decoration: BoxDecoration(
-              color: Colors.black26,
+              color: AppColors.textMuted.withOpacity(0.35),
               borderRadius: BorderRadius.circular(10),
             ),
           ),
