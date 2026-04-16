@@ -16,32 +16,13 @@ class BurbujaBot extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            width: 34,
-            height: 34,
-            margin: const EdgeInsets.only(right: 8, bottom: 2),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [AppColors.navy, AppColors.joli],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.support_agent,
-              color: Colors.white,
-              size: 18,
-            ),
-          ),
           Flexible(
             child: Container(
               margin: const EdgeInsets.only(bottom: 6),
               padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
+                horizontal: 13,
+                vertical: 13,
               ),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -65,7 +46,7 @@ class BurbujaBot extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 15.5,
                   color: AppColors.dark,
-                  height: 1.5,
+                  height: 1.45,
                 ),
               ),
             ),
@@ -94,31 +75,38 @@ class BurbujaUsuario extends StatelessWidget {
         children: [
           const SizedBox(width: 40),
           Flexible(
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 6),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 120,
+                maxWidth: 230,
               ),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [AppColors.navy, AppColors.joli],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
                 ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(18),
-                  topRight: Radius.circular(18),
-                  bottomLeft: Radius.circular(18),
-                  bottomRight: Radius.circular(4),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [AppColors.navy, AppColors.joli],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18),
+                    topRight: Radius.circular(18),
+                    bottomLeft: Radius.circular(18),
+                    bottomRight: Radius.circular(4),
+                  ),
                 ),
-              ),
-              child: Text(
-                texto,
-                style: const TextStyle(
-                  fontSize: 15.5,
-                  color: Colors.white,
-                  height: 1.5,
+                child: Text(
+                  texto,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    height: 1.35,
+                  ),
                 ),
               ),
             ),
@@ -141,47 +129,92 @@ class OpcionesChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 42),
-        child: Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: opciones.map((opcion) {
-            return InkWell(
-              borderRadius: BorderRadius.circular(22),
-              onTap: () => onSeleccion(opcion),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double maxWidth = constraints.maxWidth;
+        final bool unaColumna = maxWidth < 360;
+        final int columnas = unaColumna ? 1 : 2;
+        final double spacing = 12;
+        final double itemWidth =
+            (maxWidth - (spacing * (columnas - 1))) / columnas;
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: spacing,
+            runSpacing: spacing,
+            children: opciones.map((opcion) {
+              return SizedBox(
+                width: itemWidth,
+                child: _ChipOpcion(
+                  opcion: opcion,
+                  onTap: () => onSeleccion(opcion),
                 ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  border: Border.all(
-                    color: AppColors.joli.withOpacity(0.35),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.dark.withOpacity(0.05),
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  opcion.texto,
-                  style: const TextStyle(
-                    fontSize: 14.5,
-                    color: AppColors.navy,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+              );
+            }).toList(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ChipOpcion extends StatelessWidget {
+  final PreguntaOpcion opcion;
+  final VoidCallback onTap;
+
+  const _ChipOpcion({
+    required this.opcion,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: onTap,
+        splashColor: AppColors.joli.withOpacity(0.08),
+        highlightColor: AppColors.joli.withOpacity(0.04),
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: 52,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 10,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: AppColors.joli.withOpacity(0.35),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.dark.withOpacity(0.04),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
               ),
-            );
-          }).toList(),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              opcion.texto,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 13.8,
+                color: AppColors.navy,
+                fontWeight: FontWeight.w600,
+                height: 1.2,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -244,21 +277,18 @@ class ContactoCard extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               _ContactoBtn(
-                icono: Icons.chat_rounded,
                 label: 'WhatsApp',
                 color: AppColors.primary,
                 onTap: onWhatsApp,
               ),
               const SizedBox(height: 8),
               _ContactoBtn(
-                icono: Icons.phone_rounded,
                 label: 'Llamar',
                 color: AppColors.navy,
                 onTap: onTelefono,
               ),
               const SizedBox(height: 8),
               _ContactoBtn(
-                icono: Icons.email_rounded,
                 label: 'Correo electrónico',
                 color: AppColors.joli,
                 onTap: onCorreo,
@@ -272,13 +302,11 @@ class ContactoCard extends StatelessWidget {
 }
 
 class _ContactoBtn extends StatelessWidget {
-  final IconData icono;
   final String label;
   final Color color;
   final VoidCallback onTap;
 
   const _ContactoBtn({
-    required this.icono,
     required this.label,
     required this.color,
     required this.onTap,
@@ -288,7 +316,7 @@ class _ContactoBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton.icon(
+      child: OutlinedButton(
         onPressed: onTap,
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 13),
@@ -298,8 +326,7 @@ class _ContactoBtn extends StatelessWidget {
           ),
           backgroundColor: color.withOpacity(0.06),
         ),
-        icon: Icon(icono, color: color, size: 20),
-        label: Text(
+        child: Text(
           label,
           style: TextStyle(
             fontSize: 14.5,
@@ -350,73 +377,53 @@ class _TypingIndicatorState extends State<TypingIndicator>
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            width: 34,
-            height: 34,
-            margin: const EdgeInsets.only(right: 8, bottom: 2),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [AppColors.navy, AppColors.joli],
-              ),
-              shape: BoxShape.circle,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppColors.border),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.dark.withOpacity(0.06),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
-            child: const Icon(
-              Icons.support_agent,
-              color: Colors.white,
-              size: 18,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColors.border),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.dark.withOpacity(0.06),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: AnimatedBuilder(
-              animation: _animacion,
-              builder: (_, __) {
-                return Row(
-                  children: List.generate(3, (index) {
-                    final opacity = index == 0
-                        ? _animacion.value
-                        : index == 1
-                            ? (_animacion.value * 0.8).clamp(0.2, 1.0)
-                            : (1 - _animacion.value + 0.3).clamp(0.2, 1.0);
+          ],
+        ),
+        child: AnimatedBuilder(
+          animation: _animacion,
+          builder: (_, __) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(3, (index) {
+                final opacity = index == 0
+                    ? _animacion.value
+                    : index == 1
+                        ? (_animacion.value * 0.8).clamp(0.2, 1.0)
+                        : (1 - _animacion.value + 0.3).clamp(0.2, 1.0);
 
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: Opacity(
-                        opacity: opacity,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: AppColors.joli,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: Opacity(
+                    opacity: opacity,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: AppColors.joli,
+                        shape: BoxShape.circle,
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                 );
-              },
-            ),
-          ),
-        ],
+              }),
+            );
+          },
+        ),
       ),
     );
   }
