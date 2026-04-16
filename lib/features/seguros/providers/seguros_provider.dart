@@ -6,52 +6,34 @@ class SegurosProvider with ChangeNotifier {
     // GASTOS MÉDICOS MAYORES
     SeguroModel(
       id: '1',
-      nombre: 'Gastos Médicos Mayores Esencial',
-      descripcion: 'Atención médica sin preocupaciones ante imprevistos.',
+      nombre: 'Gastos Médicos Mayores',
+      descripcion:
+          'Cobertura médica nacional e internacional con acceso a hospitales de primer nivel y una amplia red de especialistas.',
       tipo: TipoSeguro.gastosMedicosMayores,
       precioMensual: 450.0,
       beneficios: [
-        'Hospitalización ilimitada',
-        'Urgencias 24/7',
-        'Medicamentos incluidos',
-      ],
-    ),
-    SeguroModel(
-      id: '2',
-      nombre: 'Gastos Médicos Mayores Premium',
-      descripcion: 'Red amplia de hospitales y especialistas.',
-      tipo: TipoSeguro.gastosMedicosMayores,
-      precioMensual: 950.0,
-      beneficios: [
-        'Todo lo del plan esencial',
-        'Especialistas sin referencia',
-        'Cobertura internacional',
+        'Cobertura nacional e internacional',
+        'Cobertura desde los 0 hasta los 74 años',
+        'Hospitales de primer nivel',
+        'Más de 12,000 proveedores médicos',
+        'Consultas médicas y medicamentos a domicilio',
+        'Estudios de laboratorio, tratamientos y red de especialistas',
       ],
     ),
 
     // VIDA
     SeguroModel(
       id: '3',
-      nombre: 'Seguro de Vida Básico',
-      descripcion: 'Protección esencial para ti y tu familia.',
+      nombre: 'Seguro de Vida y Temporal',
+      descripcion:
+          'Protección para tu familia con respaldo financiero ante imprevistos.',
       tipo: TipoSeguro.vida,
       precioMensual: 299.0,
       beneficios: [
-        'Cobertura por fallecimiento',
-        'Auxilio por accidente',
-        'Beneficiarios ilimitados',
-      ],
-    ),
-    SeguroModel(
-      id: '4',
-      nombre: 'Seguro de Vida Plus',
-      descripcion: 'Cobertura ampliada con invalidez total.',
-      tipo: TipoSeguro.vida,
-      precioMensual: 599.0,
-      beneficios: [
-        'Todo lo del plan básico',
+        'Respaldo económico para tu familia',
+        'Cobertura en caso de fallecimiento',
         'Cobertura por invalidez',
-        'Adelanto por enfermedad terminal',
+        'Protección ante imprevistos',
       ],
     ),
 
@@ -59,13 +41,15 @@ class SegurosProvider with ChangeNotifier {
     SeguroModel(
       id: '5',
       nombre: 'Seguro de Daños',
-      descripcion: 'Protege tu patrimonio ante siniestros.',
+      descripcion:
+          'Protección para tu patrimonio, hogar o negocio ante imprevistos, con respaldo financiero en caso de siniestros.',
       tipo: TipoSeguro.danos,
       precioMensual: 380.0,
       beneficios: [
-        'Cobertura por incendio',
-        'Robo con violencia',
-        'Daños por fenómenos naturales',
+        'Cobertura ante imprevistos',
+        'Protección de bienes, inmuebles y activos',
+        'Respaldo financiero ante siniestros',
+        'Protección para hogar o negocio',
       ],
     ),
 
@@ -73,39 +57,31 @@ class SegurosProvider with ChangeNotifier {
     SeguroModel(
       id: '6',
       nombre: 'Seguro de Viaje',
-      descripcion: 'Viaja tranquilo a cualquier parte del mundo.',
+      descripcion:
+          'Viaja con tranquilidad con respaldo médico y asistencia en todo momento.',
       tipo: TipoSeguro.viaje,
       precioMensual: 180.0,
       beneficios: [
-        'Asistencia médica en el extranjero',
-        'Cancelación de vuelo',
-        'Pérdida de equipaje',
+        'Respaldo médico y asistencia ante emergencias',
+        'Atención médica en el extranjero',
+        'Asistencia y protección durante tu viaje',
+        'Cobertura desde el inicio hasta tu regreso',
       ],
     ),
 
     // AUTO Y FLOTILLA
     SeguroModel(
       id: '7',
-      nombre: 'Seguro de Auto',
-      descripcion: 'Cobertura completa para tu vehículo.',
+      nombre: 'Seguro de Auto y Flotillas',
+      descripcion:
+          'Trabajamos con aseguradoras sólidas y confiables para brindarte la mejor protección para tu vehículo o flotilla.',
       tipo: TipoSeguro.autoYFlotilla,
       precioMensual: 320.0,
       beneficios: [
-        'Daños materiales',
-        'Robo total',
-        'Responsabilidad civil',
-      ],
-    ),
-    SeguroModel(
-      id: '8',
-      nombre: 'Seguro de Flotilla',
-      descripcion: 'Protege toda tu flota vehicular.',
-      tipo: TipoSeguro.autoYFlotilla,
-      precioMensual: 850.0,
-      beneficios: [
-        'Cobertura multi-vehículo',
-        'Gestor de siniestros dedicado',
-        'Asistencia vial 24/7',
+        'Aseguradoras aliadas reconocidas',
+        'Opciones con Bupa, MAPFRE, Quálitas y Skandia',
+        'Cobertura para autos y flotillas',
+        'Protección confiable y personalizada',
       ],
     ),
   ];

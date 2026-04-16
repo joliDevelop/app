@@ -115,12 +115,12 @@ class _RetiroPageState extends State<RetiroPage> {
             backgroundColor: AppColors.navy,
             elevation: 4,
             icon: const Icon(
-              Icons.keyboard_arrow_up_rounded,
+              Icons.switch_access_shortcut_sharp,
               color: Colors.white,
               size: 26,
             ),
             label: const Text(
-              "Volver arriba",
+              "",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
@@ -201,40 +201,38 @@ class _RetiroPageState extends State<RetiroPage> {
     );
   }
 
-  Widget _buildPPR() => ProductoCard(
-        icono: Icons.savings_outlined,
-        etiqueta: "Ahorro a largo plazo",
-        titulo: "Plan Personal de Retiro",
-        subtitulo: "PPR",
-        descripcion:
-            "Una opción para construir ahorro para tu retiro con beneficios fiscales y respaldo de instituciones aliadas.",
-        beneficios: const [
-          BeneficioItem(
-            texto: "Deducible de impuestos hasta el 10% de tu ingreso anual.",
-          ),
-          BeneficioItem(
-            texto: "Rendimientos competitivos para hacer crecer tu ahorro.",
-          ),
-          BeneficioItem(
-            texto:
-                "Tu beneficiario recibe el fondo completo en caso de fallecimiento.",
-          ),
-          BeneficioItem(
-            texto: "Posibilidad de integrar seguros de vida y gastos médicos.",
-          ),
-          BeneficioItem(
-            texto:
-                "Disponible al cumplir 65 años o con más de 5 años de antigüedad.",
-          ),
-        ],
-        nota:
-            "Recomendado si buscas una opción de largo plazo con ventajas fiscales y protección familiar.",
-        colorEtiqueta: AppColors.joli,
-        botonTexto: "Solicitar PPR",
-        onTap: () => go(context, '/plan-retiro/ppr/form'),
-        expanded: _expanded == 0,
-        onToggle: () => _toggle(0),
-      );
+Widget _buildPPR() => ProductoCard(
+      icono: Icons.savings_outlined,
+      etiqueta: "Planes de retiro",
+      titulo: "Plan Personal de Retiro",
+      subtitulo: "PPR",
+      descripcion:
+          "Te permite ahorrar e invertir de forma constante hasta tu edad de retiro, haciendo crecer tu dinero con rendimientos atractivos y beneficios fiscales.",
+      beneficios: const [
+        BeneficioItem(
+          texto: "Ideal si cotizas bajo Ley 97.",
+        ),
+        BeneficioItem(
+          texto: "Conveniente para emprendedores o trabajadores independientes.",
+        ),
+        BeneficioItem(
+          texto: "Ayuda a complementar tu pensión futura con un capital propio.",
+        ),
+        BeneficioItem(
+          texto: "Permite hacer aportaciones mensuales accesibles e invertir a largo plazo.",
+        ),
+        BeneficioItem(
+          texto: "Ofrece beneficios fiscales y respaldo financiero para ti y tu familia.",
+        ),
+      ],
+      nota:
+          "Recomendado si buscas construir un retiro sólido y complementar tu pensión con una inversión a largo plazo, especialmente si no cuentas con una pensión suficiente o tu ahorro actual es limitado.",
+      colorEtiqueta: AppColors.joli,
+      botonTexto: "Solicitar PPR",
+      onTap: () => go(context, '/plan-retiro/ppr/form'),
+      expanded: _expanded == 0,
+      onToggle: () => _toggle(0),
+    );
 
   Widget _buildJub() => ProductoCard(
         icono: Icons.calendar_month_outlined,

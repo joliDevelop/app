@@ -33,7 +33,7 @@ class JoliSideMenu extends StatelessWidget {
                         color: AppColors.primary.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.person, color: AppColors.navy),
+                      child: const Icon(Icons.person_outlined, color: AppColors.navy),
                     ),
 
                     const SizedBox(width: 12),

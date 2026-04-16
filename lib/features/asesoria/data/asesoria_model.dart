@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum MensajeTipo { usuario, bot, opciones, contacto }
 
 class ChatMensaje {
@@ -18,12 +20,14 @@ class PreguntaOpcion {
   final String id;
   final String texto;
   final String respuesta;
+  final IconData? icono;
   final List<PreguntaOpcion>? subOpciones;
 
   const PreguntaOpcion({
     required this.id,
     required this.texto,
     required this.respuesta,
+    this.icono,
     this.subOpciones,
   });
 }
@@ -32,8 +36,9 @@ class AsesoriaData {
   static const List<PreguntaOpcion> preguntasIniciales = [
     PreguntaOpcion(
       id: 'seguros',
-      texto: '🛡️ Seguros',
+      texto: 'Seguros',
       respuesta: '',
+      icono: Icons.shield_outlined,
       subOpciones: [
         PreguntaOpcion(
           id: 'seguros_1',
@@ -63,8 +68,9 @@ class AsesoriaData {
     ),
     PreguntaOpcion(
       id: 'retiro',
-      texto: '🏦 Plan de Retiro',
+      texto: 'Plan de retiro',
       respuesta: '',
+      icono: Icons.account_balance_wallet_outlined,
       subOpciones: [
         PreguntaOpcion(
           id: 'retiro_1',
@@ -94,8 +100,9 @@ class AsesoriaData {
     ),
     PreguntaOpcion(
       id: 'cuenta',
-      texto: '👤 Mi cuenta',
+      texto: 'Mi cuenta',
       respuesta: '',
+      icono: Icons.person_outline,
       subOpciones: [
         PreguntaOpcion(
           id: 'cuenta_1',
@@ -119,8 +126,9 @@ class AsesoriaData {
     ),
     PreguntaOpcion(
       id: 'pagos',
-      texto: '💳 Pagos y facturación',
+      texto: 'Pagos y facturación',
       respuesta: '',
+      icono: Icons.credit_card_outlined,
       subOpciones: [
         PreguntaOpcion(
           id: 'pagos_1',
@@ -144,8 +152,9 @@ class AsesoriaData {
     ),
     PreguntaOpcion(
       id: 'app',
-      texto: '📱 Uso de la app',
+      texto: 'Uso de la app',
       respuesta: '',
+      icono: Icons.phone_iphone_outlined,
       subOpciones: [
         PreguntaOpcion(
           id: 'app_1',
